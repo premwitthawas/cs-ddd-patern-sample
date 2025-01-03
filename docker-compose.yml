@@ -1,12 +1,32 @@
 # Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP.NET Core service.
-
-version: '3.4'
-
 services:
-  shopingmodularapi:
+  shopingmodular-app:
     image: shopingmodularapi
     build:
-      context: .
-      dockerfile: src/Application/Shoping.Modular.API/Dockerfile
+      context: ./src
+      dockerfile: Application/Shoping.Modular.API/Dockerfile
+    networks:
+      - shopingmodular
+    depends_on:
+      - shopingmodular-db
     ports:
       - 5221:5221
+  shopingmodular-db:
+    image: postgres:17.2-alpine3.20
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: shopingmodular
+    ports:
+      - "5470:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - shopingmodular
+networks:
+  shopingmodular:
+    driver: bridge
+volumes:
+  postgres-data:
+    driver: local
