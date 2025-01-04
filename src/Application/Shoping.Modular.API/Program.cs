@@ -1,30 +1,20 @@
-
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Host.UseSerilog((context, config) =>
+    config.ReadFrom.Configuration(context.Configuration));
 builder.Services.AddCarterWithAssembies(typeof(CatalogModule).Assembly);
 
 builder.Services
 .AddCatalogModule(builder.Configuration)
 .AddBasketModule(builder.Configuration)
 .AddOrderingModule(builder.Configuration);
-builder.Services.AddControllers();
-builder.Services.AddOpenApi();
+builder.Services.AddExceptionHandler<CustomExceptionHandle>();
 var app = builder.Build();
-// if (app.Environment.IsDevelopment())
-// {
-//     app.MapOpenApi();
-// }
-
 app.MapCarter();
-
+app.UseSerilogRequestLogging();
+app.UseExceptionHandler(options => { });
 app
 .UseCatalogModule()
 .UseBasketModule()
 .UseOrderingModule();
-// app.UseHttpsRedirection();
-// app.UseStaticFiles();
-// app.UseAuthentication();
-// app.UseAuthorization();
-// app.MapControllers();
-
 app.Run();

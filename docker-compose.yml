@@ -24,6 +24,16 @@ services:
       - postgres-data:/var/lib/postgresql/data
     networks:
       - shopingmodular
+  shopingmodular-seq:
+    image: datalust/seq:latest
+    environment:
+      ACCEPT_EULA: Y
+      SEQ_API_KEY: "Gi71vBZTn78fXZC1rhPWwg=="
+    networks:
+      - shopingmodular
+    ports:
+      - "5341:5341"
+      - "9091:80"
 networks:
   shopingmodular:
     driver: bridge
