@@ -1,4 +1,8 @@
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCarterWithAssembies(typeof(CatalogModule).Assembly);
+
 builder.Services
 .AddCatalogModule(builder.Configuration)
 .AddBasketModule(builder.Configuration)
@@ -6,10 +10,12 @@ builder.Services
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 var app = builder.Build();
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
+// if (app.Environment.IsDevelopment())
+// {
+//     app.MapOpenApi();
+// }
+
+app.MapCarter();
 
 app
 .UseCatalogModule()
@@ -19,6 +25,6 @@ app
 // app.UseStaticFiles();
 // app.UseAuthentication();
 // app.UseAuthorization();
-app.MapControllers();
+// app.MapControllers();
 
 app.Run();

@@ -1,7 +1,7 @@
 
 namespace Catalog.Products.Features.UpdateProduct;
 
-public record UpdateProductCommand(ProductDto ProductDto) : ICommand<UpdateProductResult>;
+public record UpdateProductCommand(ProductDto Product) : ICommand<UpdateProductResult>;
 
 public record UpdateProductResult(bool IsSuccess);
 
@@ -9,12 +9,12 @@ internal class UpdateProductHandler(CatalogDbContext dbContext) : ICommandHandle
 {
     public async Task<UpdateProductResult> Handle(UpdateProductCommand command, CancellationToken cancellationToken)
     {
-        var product = await dbContext.Products.FindAsync([command.ProductDto.Id], cancellationToken);
+        var product = await dbContext.Products.FindAsync([command.Product.Id], cancellationToken);
         if (product is null)
         {
-            throw new Exception($"Product with id {command.ProductDto.Id} not found");
+            throw new Exception($"Product with id {command.Product.Id} not found");
         }
-        UpdateProductWithNewValues(product, command.ProductDto);
+        UpdateProductWithNewValues(product, command.Product);
         dbContext.Products.Update(product);
         await dbContext.SaveChangesAsync(cancellationToken);
         return new UpdateProductResult(true);
