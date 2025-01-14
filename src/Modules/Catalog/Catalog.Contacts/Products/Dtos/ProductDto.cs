@@ -1,4 +1,4 @@
-namespace Catalog.Products.Dtos;
+namespace Catalog.Contacts.Products.Dtos;
 
 public record ProductDto(
     Guid Id,

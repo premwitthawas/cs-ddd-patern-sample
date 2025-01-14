@@ -2,7 +2,7 @@ using Shared.PaginationHandlers;
 
 namespace Catalog.Products.Features.GetProducts;
 
-public record GetProductsQuery(PaginationRequest Request) : IQuery<GetProductsResult> { };
+public record GetProductsQuery(PaginationRequest PaginationRequest) : IQuery<GetProductsResult> { };
 
 public record GetProductsResult(PaginationResult<ProductDto> Products);
 
@@ -10,8 +10,8 @@ internal class GetProductsHandler(CatalogDbContext dbContext) : IQueryHandler<Ge
 {
     public async Task<GetProductsResult> Handle(GetProductsQuery query, CancellationToken cancellationToken)
     {
-        var pageIndex = query.Request.PageIndex;
-        var pageSize = query.Request.PageSize;
+        var pageIndex = query.PaginationRequest.PageIndex;
+        var pageSize = query.PaginationRequest.PageSize;
         var totalProducts = await dbContext.Products.LongCountAsync(cancellationToken);
         var products = await dbContext.Products
         .AsNoTracking()

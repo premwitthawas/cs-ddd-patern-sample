@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace Shared.CQRS;
+namespace Shared.Contacts.CQRS;
 
 
 public interface ICommandHandler<in TCommand> : IRequestHandler<TCommand, Unit>

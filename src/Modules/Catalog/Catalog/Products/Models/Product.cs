@@ -39,7 +39,5 @@ public class Product : Aggregate<Guid>
             Price = price;
             AddDomainEvent(new ProductPriceChangedEvent(this));
         }
-
-        //TODO: price update event
     }
 }

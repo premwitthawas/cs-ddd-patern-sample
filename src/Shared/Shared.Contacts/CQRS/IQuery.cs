@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace Shared.CQRS;
+namespace Shared.Contacts.CQRS;
 
 public interface IQuery<out T>: IRequest<T>
     where T : notnull

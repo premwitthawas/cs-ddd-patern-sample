@@ -34,9 +34,29 @@ services:
     ports:
       - "5341:5341"
       - "9091:80"
+  shopingmoduler-redis:
+    image: redis:latest
+    networks:
+      - shopingmodular
+    ports:
+      - "6379:6379"
+  shopingmoduler-rabbitmq:
+    image: rabbitmq:4.0.5-management-alpine
+    networks:
+      - shopingmodular
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
 networks:
   shopingmodular:
     driver: bridge
 volumes:
   postgres-data:
+    driver: local
+  rabbitmq-data:
     driver: local

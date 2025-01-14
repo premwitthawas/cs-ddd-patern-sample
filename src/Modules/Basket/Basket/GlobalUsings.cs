@@ -1,0 +1,17 @@
+global using Shared.DDD;
+global using Basket.Models;
+global using Shared.Data.Interceptors;
+global using Basket.Data;
+global using Basket.Basket.Dtos;
+global using Carter;
+global using Mapster;
+global using MediatR;
+global using Microsoft.AspNetCore.Http;
+global using Microsoft.AspNetCore.Builder;
+global using Microsoft.AspNetCore.Routing;
+global using FluentValidation;
+global using Shared.Contacts.CQRS;
+global using Basket.Basket.Exceptions;
+global using Microsoft.EntityFrameworkCore;
+global using Basket.Basket.Repositories;
+global using Catalog.Contacts.Products.Features.GetProductById;

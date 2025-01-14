@@ -1,11 +1,6 @@
-﻿using System.Reflection;
-
-using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore.Diagnostics;
+﻿using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
-using Shared.Behaviors;
 using Shared.Data.Interceptors;
 
 
@@ -15,13 +10,13 @@ public static class CatalogModule
 {
     public static IServiceCollection AddCatalogModule(this IServiceCollection service, IConfiguration configuration)
     {
-        service.AddMediatR(config =>
-        {
-            config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
-            config.AddOpenBehavior(typeof(ValidateBehavior<,>));
-            config.AddOpenBehavior(typeof(LoggingBehavior<,>));
-        });
-        service.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+        // service.AddMediatR(config =>
+        // {
+        //     config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+        //     config.AddOpenBehavior(typeof(ValidateBehavior<,>));
+        //     config.AddOpenBehavior(typeof(LoggingBehavior<,>));
+        // });
+        // service.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         var connectionString = configuration.GetConnectionString("Database");
         service.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
         service.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();

@@ -1,8 +1,6 @@
 using MediatR;
 
-namespace Shared.CQRS;
-
-
+namespace Shared.Contacts.CQRS;
 public interface ICommand : IRequest<Unit>
 {
     

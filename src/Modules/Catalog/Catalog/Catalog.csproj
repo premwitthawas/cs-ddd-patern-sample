@@ -5,7 +5,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\Shared.Messaging\Shared.Messaging.csproj" />
     <ProjectReference Include="..\..\..\Shared\Shared\Shared.csproj" />
+    <ProjectReference Include="..\Catalog.Contacts\Catalog.Contacts.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
